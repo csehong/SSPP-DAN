@@ -1,0 +1,5 @@
+[2017-06-03 19:26:21] {'unrolled_lstm': False, 'learning_rate': 1e-05, 'test_batch_size': 50, 'batch_size': 50, 'test_step': 50, 'save_step': 50, 'display_step': 50, 'max_steps': 10000, 'keep_prob': 0.5, 'summaries_dir': 'expr/F3D_30_60_FC6_FC6'}
+[2017-06-03 19:26:44] [iter 50] costs(a,d,c)=(1.253,0.6006,0.6522) dom_acc: 0.830000, class_acc: 0.860000
+[2017-06-03 19:26:45] [Test iter 50] costs(a,d,c)=(10.56,1.585,8.971) dom_acc: 0.440000, class_acc: 0.100000
+[2017-06-03 19:27:13] [iter 100] costs(a,d,c)=(0.3839,0.1744,0.2095) dom_acc: 0.930000, class_acc: 0.980000
+[2017-06-03 19:27:13] [Test iter 100] costs(a,d,c)=(9.251,0.7568,8.494) dom_acc: 0.780000, class_acc: 0.140000
