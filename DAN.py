@@ -5,6 +5,7 @@ from util.flip_gradient import flip_gradient
 
 
 
+# Domain Adaptation Model
 class Dom_Adapt_Net:
     class OPTS(OPTS.OPTS):
         def __init__(self):

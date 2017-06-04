@@ -71,3 +71,7 @@ with tf.Session() as sess:
     print("[AGGR. TEST iter %d] costs(a,d,c)=(%4.4g,%4.4g,%4.4g) dom_acc: %.6f, class_acc: %.6f\n" %(step, acc_loss / acc_b, acc_d_loss / acc_b, acc_c_loss / acc_b, acc_d_acc / acc_b, acc_c_acc / acc_b))
 
 
+
+if __name__ == '__main__':
+  tf.app.run()
+

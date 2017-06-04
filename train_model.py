@@ -12,11 +12,11 @@ FLAGS = flags.FLAGS
 flags.DEFINE_float('learning_rate', 1e-5, 'Initial learning rate.')
 flags.DEFINE_float('keep_prob', 0.5, 'Dropout rate (for keeping)')
 flags.DEFINE_integer('max_steps', 10000, 'Maximum number of steps for training')
-flags.DEFINE_integer('batch_size', 50, 'Training Batch size')
-flags.DEFINE_integer('test_batch_size', 50, 'Test batch size')
+flags.DEFINE_integer('batch_size', 70, 'Training Batch size')
+flags.DEFINE_integer('test_batch_size', 70, 'Test batch size')
 flags.DEFINE_integer('display_step', 50, 'Display step for training')
 flags.DEFINE_integer('test_step', 50, 'Display step for test')
-flags.DEFINE_integer('save_step', 50, 'Save step for Checkpoint')
+flags.DEFINE_integer('save_step', 100, 'Save step for Checkpoint')
 flags.DEFINE_string('summaries_dir', 'expr/F3D_30_60_FC6_FC6', 'Directory containing summary information about the experiment')
 
 
@@ -105,3 +105,8 @@ with tf.Session() as sess:
             logger.write("[Test iter %d] costs(a,d,c)=(%4.4g,%4.4g,%4.4g) dom_acc: %.6f, class_acc: %.6f" % (i + 1, loss, d_loss, c_loss, d_acc, c_acc))
         if (i + 1) % FLAGS.save_step == 0:
             saver.save(sess, checkpoint_prefix, global_step=i+1)
+
+
+
+if __name__ == '__main__':
+  tf.app.run()
