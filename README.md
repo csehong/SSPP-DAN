@@ -41,7 +41,7 @@ Results
 -------------
 Facial feature space (left) and its embedding space after applying DA (right). The subscript “s” and “t” in the
 legend refer to the source and target domains, respectively.
-![Alt text](./figure/embedding.PNG)
+![Alt text](./figure/DAN.PNG)
 
 
 
