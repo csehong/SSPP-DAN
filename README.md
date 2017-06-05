@@ -1,7 +1,6 @@
 ##SSPP-DAN in Tensorflow
-Tensorflow implementation of [SSPP-DAN: Deep Domain Adaptation Network for Face Recognition with Single Sample Per Person][arxiv_link]
-[arxiv_link]: https://arxiv.org/abs/1702.04069
 
+Tensorflow implementation of [SSPP-DAN: Deep Domain Adaptation Network for Face Recognition with Single Sample Per Person]
 
 ![Alt text](./figure/overallflow.PNG)
 
