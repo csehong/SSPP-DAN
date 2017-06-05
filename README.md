@@ -20,45 +20,35 @@ Prerequisites
 [np]: http://www.numpy.org/
 [sp]: https://www.scipy.org/install.html
 
-###Usage
+Usage
 -------------
 
-
-
-First, download the dataset from [our repository] [gd]
-[gd]: https://drive.google.com/uc?id=0ByHRRxErVc0NTjFERTF5c1l2VVU&export=download
-
-![Alt text](./EK-LFH.PNG)
-
-
-
-
-
-
-
-ASDFA
-
-```python
-$ python download.py mnist celebA
-import tensorflow as tf
-```
-
+First, download the [dataset] [gd] or the [pickle files] [pkl] that we have already created from our repository. After all pickle files are download, move them into the SSPP-DAN/data folder.
+[gd]: https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download
+[pkl]: https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
 
 To train a model with downloaded dataset:
+```python
+$ python train_model.py --learning_rate=1e-5 --batch_size=50 --save_step=100
+```
 
-$ python main.py --dataset mnist --input_height=28 --output_height=28 --train
-$ python main.py --dataset celebA --input_height=108 --train --crop
 To test with an existing model:
+```python
+$ python test_model.py --summaries_dir 'expr/F3D_30_60_FC6_FC6' --test_batch_size=50
+```
 
-$ python main.py --dataset mnist --input_height=28 --output_height=28
-$ python main.py --dataset celebA --input_height=108 --crop
-Or, you can use your own dataset (without central crop) by:
+Results
+-------------
+Facial feature space (left) and its embedding space after applying DA (right). The subscript “s” and “t” in the
+legend refer to the source and target domains, respectively.
+![Alt text](./figure/embedding.PNG)
 
-$ mkdir data/DATASET_NAME
-... add images to data/DATASET_NAME ...
-$ python main.py --dataset DATASET_NAME --train
-$ python main.py --dataset DATASET_NAME
-$ # example
-$ python main.py --dataset=eyes --input_fname_pattern="*_cropped.png" --train
+
+
+
+Author
+------------
+Sungeun Hong / @[csehong][wp]
+[wp]: sites.google.com/site/csehong
 
 
