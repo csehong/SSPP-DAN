@@ -16,9 +16,8 @@ Prerequisites
 Usage
 -------------
 
-First, download the [dataset] [gd] or the [pickle files] [pkl] that we have already created from our repository. After all pickle files are download, move them into the SSPP-DAN/data folder.
-[gd]: https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download
-[pkl]: https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
+First, download the [dataset] (https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download) or the [pickle files] (https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
+) that we have already created from our repository. After all pickle files are download, move them into the SSPP-DAN/data folder.
 
 To train a model with downloaded dataset:
 ```
@@ -26,7 +25,7 @@ $ python train_model.py --learning_rate=1e-5 --batch_size=50 --save_step=100
 ```
 
 To test with an existing model:
-```python
+```
 $ python test_model.py --summaries_dir 'expr/F3D_30_60_FC6_FC6' --test_batch_size=50
 ```
 
