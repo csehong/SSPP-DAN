@@ -16,7 +16,7 @@ Prerequisites
 Usage
 -------------
 
-First, download the [dataset] (https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download) or the [pickle files] (https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
+First, download the [dataset](https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download) or the [pickle files](https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
 ) that we have already created from our repository. After all pickle files are download, move them into the SSPP-DAN/data folder.
 
 To train a model with downloaded dataset:
