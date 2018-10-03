@@ -54,14 +54,14 @@ class Dom_Adapt_Net:
         fc2_drop = tf.nn.dropout(fc2, self.keep_prob)
 
         self.dom_score = self.fc(fc2_drop, 2, 'dom_score')
-        self.dom_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(self.dom_score, self.d_))
+        self.dom_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits = self.dom_score, labels = self.d_))
         correct_pred = tf.equal(tf.argmax(self.dom_score, 1), tf.argmax(self.d_, 1))
         self.dom_accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
     # Construct Label Classifier Network
     def class_network(self, x):
         self.class_score = self.fc(x, self.opts.num_class, 'class_score')
-        self.class_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(self.class_score, self.y_))
+        self.class_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits = self.class_score, labels = self.y_))
         correct_pred = tf.equal(tf.argmax(self.class_score, 1), tf.argmax(self.y_, 1))
         self.class_accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
