@@ -19,6 +19,8 @@ Usage
 First, download the [dataset](https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download) or the [pickle files](https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
 ) that we have already created from our repository. After all pickle files are download, move them into the SSPP-DAN/data folder.
 
+Then run get_vggface.sh in the SSPP-DAN/pretrained folder to use the pre-trained VGG-Face model.
+
 To train a model with downloaded dataset:
 ```
 $ python train_model.py --learning_rate=1e-5 --batch_size=50 --save_step=100
