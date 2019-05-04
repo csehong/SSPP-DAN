@@ -3,10 +3,12 @@ import util.OPTS as OPTS
 from pretrained.VGG_Face import VGG_Face
 from util.flip_gradient import flip_gradient
 
+from attention_module import *
+
 
 
 # Domain Adaptation Model
-class Dom_Adapt_Net:
+class Dom_Adapt_Net_CBAM:
     class OPTS(OPTS.OPTS):
         def __init__(self):
             OPTS.OPTS.__init__(self, 'VGG_Face OPTS')
@@ -78,4 +80,29 @@ class Dom_Adapt_Net:
             biases = tf.get_variable("biases", shape=[dim], initializer=tf.constant_initializer(0.0))
             fc = tf.nn.xw_plus_b(x, weights, biases)
             return fc
+        
+    def vgg_conv_cbam(self, x, dim, num_conv=3, layer_num=None):
+        t = x
+        for i in range(1, num_conv + 1):
+            t = self.vgg_conv2d(t, dim, "conv%d_%d" % (layer_num, i))
+            t = cbam_block(t, dim, "cbam%d_%d" % (layer_num, i), ratio=8)
+        t = self.vgg_pool2d(t, "pool%d" % (layer_num))
+        return t
+
+    def vgg_conv2d(self, x, dim, name, reuse=False, trainable=True):
+        in_shape = x.get_shape().as_list()
+        with tf.variable_scope(name, reuse=reuse):
+            weights = tf.get_variable("weights", shape=[3, 3, in_shape[-1], dim], initializer=tf.contrib.layers.xavier_initializer(), trainable=trainable)
+            biases = tf.get_variable("biases", shape=[dim], initializer=tf.constant_initializer(0.0), trainable=trainable)
+            conv = tf.nn.conv2d(x, weights, strides=[1, 1, 1, 1], padding='SAME')
+            return tf.nn.relu(conv + biases)
+
+    def vgg_pool2d(self, in_tensor, name, reuse=False):
+        with tf.name_scope(name):
+            pool = tf.nn.max_pool(in_tensor, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+            return pool
+        
+        
+        
+
 
