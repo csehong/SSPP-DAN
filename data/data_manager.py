@@ -2,7 +2,8 @@ import os
 import pickle
 import random
 import numpy as np
-from StringIO import StringIO
+import io
+from io import BytesIO
 import skimage.io
 import util.img_proc as img_proc
 import threading
@@ -88,7 +89,7 @@ class Manager:
             wl_idx = []
             dom_one_hot = []
             for _ in range(num_batch):
-                im = skimage.io.imread(StringIO(x_tt_data[x_tt[i]]))
+                im = skimage.io.imread(BytesIO(x_tt_data[x_tt[i]]))
                 batch_x.append(img_proc.resize(im, (224, 224)))
                 dom_one_hot.append(np.array([0, 1]))
                 batch_y.append(self.one_hot(x_tt[i]))
@@ -120,7 +121,7 @@ class Manager:
                     f = random.choice([True, False])
                 else:
                     f = False
-                im = skimage.io.imread(StringIO(x_tt_data[x_tt[i]]))
+                im = skimage.io.imread(BytesIO(x_tt_data[x_tt[i]]))
                 batch_x.append(self.train_jitter(im, f=f, s=False))
                 dom_one_hot.append(np.array([0, 1]))
                 if type == 'test':
@@ -130,7 +131,7 @@ class Manager:
                 ran = sel_st.next()
                 for i in ran:
                     f = random.choice([True, False])
-                    im = skimage.io.imread(StringIO(x_st_data[x_st[i]]))
+                    im = skimage.io.imread(BytesIO(x_st_data[x_st[i]]))
                     batch_x.append(self.train_jitter(im, f=f))
                     batch_y.append(self.one_hot(x_st[i]))
                     if x_st[i].startswith('Set'):
