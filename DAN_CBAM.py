@@ -41,7 +41,15 @@ class Dom_Adapt_Net_CBAM:
         x_normalized = self.vgg_net.normalize_input(self.x)
         self.vgg_net.network(x_normalized)
         self.keep_prob = self.vgg_net.keep_prob
-        self.embedded = self.vgg_net.fc7       #Fine tuning from FC6 of VGG-Face
+        
+        self.finetune = self.vgg_net.pool4      #Fine tuning from FC6 of VGG-Face
+        
+        self.pool5 = self.vgg_conv(self.finetune, dim=512, num_conv=3, layer_num=5)
+        self.fc6 = tf.nn.relu(self.fc(self.pool5, 4096, 'fc6'))
+        self.fc6 = tf.nn.dropout(self.fc6, self.keep_prob, name='fc6_drop')
+        self.fc7 = tf.nn.relu(self.fc(self.fc6, 4096, 'fc7'))
+        self.embedded = self.fc7
+        
         self.embedded_with_class = tf.gather(self.embedded, self.with_class_idx, name='embedded_with_class')
         self.dom_network(self.embedded)
         self.class_network(self.embedded_with_class)
