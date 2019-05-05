@@ -35,7 +35,7 @@ class VGG_Face:
         self.pool2 = self.vgg_conv(self.pool1, dim=128, num_conv=2, layer_num=2)
         self.pool3 = self.vgg_conv(self.pool2, dim=256, num_conv=3, layer_num=3)
         self.pool4 = self.vgg_conv(self.pool3, dim=512, num_conv=3, layer_num=4)
-        self.pool5 = self.vgg_conv(self.pool4, dim=512, num_conv=3, layer_num=5)
+        self.pool5 = self.vgg_conv_cbam(self.pool4, dim=512, num_conv=3, layer_num=5)
         self.fc6 = tf.nn.relu(self.fc(self.pool5, 4096, 'fc6'))
         if self.opts.apply_dropout:
             self.fc6 = tf.nn.dropout(self.fc6, self.keep_prob, name='fc6_drop')
