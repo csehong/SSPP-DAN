@@ -8,7 +8,7 @@ Tensorflow implementation of [SSPP-DAN: Deep Domain Adaptation Network for Face 
 Prerequisites
 -------------
 * [Python 3.5.2](https://www.python.org/downloads/release/python-352/)
-* [Tensorflow 1.12](docker pull tensorflow/tensorflow:1.12.0-gpu-py3)
+* [Tensorflow 1.12.0-gpu-py3](https://hub.docker.com/r/tensorflow/tensorflow/)
 * [OpenCV 4.1.1](http://opencv.org/releases.html)
 * [SciPy](https://www.scipy.org/install.html)
 
