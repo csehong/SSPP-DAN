@@ -35,17 +35,17 @@ class PyMatData:
         for l in range(len(self.matlayers)):
             layer = self.matlayers[l]
             attrs = layer.dtype.names
-            print 'Layer_%d {' % (l)
+            print ('Layer_%d {' % (l))
             for attr in attrs:
                 attrval = layer[attr][0, 0]
                 if attr == 'weights':
                     if len(layer[attr][0, 0]) == 0:
                         continue
-                    print ' %s: %s,%s' % (attr, layer[attr][0, 0][0, 0].shape, layer[attr][0, 0][0, 1].shape)
+                    print (' %s: %s,%s' % (attr, layer[attr][0, 0][0, 0].shape, layer[attr][0, 0][0, 1].shape))
                     continue
                 if len(attrval) > 0:
-                    print ' %s: %s' % (attr, attrval[0])
-            print '}'
+                    print (' %s: %s' % (attr, attrval[0]))
+            print ('}')
 
     def loadnet(self):
         for l in range(len(self.matlayers)):

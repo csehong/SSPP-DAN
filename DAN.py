@@ -15,10 +15,11 @@ class Dom_Adapt_Net:
             self.num_class = None
 
     # Initialization
-    def __init__(self, opts):
+    def __init__(self, opts, emb_layer):
         if opts is None:
             opts = self.OPTS()
         self.opts = opts
+        self.emb_layer = emb_layer
         self.opts.assert_all_keys_valid()
 
         self.x = tf.placeholder(tf.float32, shape=[None, 224, 224, 3], name='input_image')
@@ -39,13 +40,21 @@ class Dom_Adapt_Net:
         x_normalized = self.vgg_net.normalize_input(self.x)
         self.vgg_net.network(x_normalized)
         self.keep_prob = self.vgg_net.keep_prob
-        self.embedded = self.vgg_net.fc6       #Fine tuning from FC6 of VGG-Face
+
+        if self.emb_layer == 'fc6':
+            self.embedded = self.vgg_net.fc6
+        elif self.emb_layer == 'fc7':
+            self.embedded = self.vgg_net.fc7
+        else:
+            print('embedding layer error')
+            exit(0)
+
         self.embedded_with_class = tf.gather(self.embedded, self.with_class_idx, name='embedded_with_class')
         self.dom_network(self.embedded)
         self.class_network(self.embedded_with_class)
-        self.loss = self.dom_loss + self.class_loss
+        self.loss = 1*self.dom_loss + self.class_loss
 
-    # Construct Domain Discriminator Network
+#
     def dom_network(self, x):
         x_flip = flip_gradient(x, self.l)
         fc1 = tf.nn.relu(self.fc(x_flip, 1024, 'dom_fc1'), name='dom_fc1_relu')
@@ -57,6 +66,23 @@ class Dom_Adapt_Net:
         self.dom_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits = self.dom_score, labels = self.d_))
         correct_pred = tf.equal(tf.argmax(self.dom_score, 1), tf.argmax(self.d_, 1))
         self.dom_accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
+    # def dom_network_se(self, x, with_class_idx):
+    #     x = flip_gradient(x, self.l)
+    #
+    #     self.x_with_class = tf.gather(x, with_class_idx, name='embedded_with_class')
+    #
+    #
+    #     fc1 = tf.nn.relu(self.fc(x_flip, 1024, 'dom_fc1'), name='dom_fc1_relu')
+    #     fc1_drop = tf.nn.dropout(fc1, self.keep_prob)
+    #     fc2 = tf.nn.relu(self.fc(fc1_drop, 1024, 'dom_fc2'), name='dom_fc2_relu')
+    #     fc2_drop = tf.nn.dropout(fc2, self.keep_prob)
+    #
+    #     self.dom_score = self.fc(fc2_drop, 2, 'dom_score')
+    #     self.dom_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits = self.dom_score, labels = self.d_))
+    #     correct_pred = tf.equal(tf.argmax(self.dom_score, 1), tf.argmax(self.d_, 1))
+    #     self.dom_accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
 
     # Construct Label Classifier Network
     def class_network(self, x):

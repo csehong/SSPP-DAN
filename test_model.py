@@ -6,26 +6,37 @@ from DAN import Dom_Adapt_Net as Network
 
 # Set Flag for Experiment
 flags = tf.app.flags
-FLAGS = flags.FLAGS
-flags.DEFINE_string('summaries_dir', 'expr/F3D_30_60_FC6_FC6', 'Directory containing summary information about the experiment')
-flags.DEFINE_integer('test_batch_size', 100, 'Test batch size')
+flags.DEFINE_string('dataset', 'eklfh_s1', 'eklfh_s1, eklfh_s2, scface_s1, scface_s2' )
+flags.DEFINE_string('exp_mode', 'dom_3D_cycle', 'lower, lower_3D, lower_3D_cycle, dom, dom_3D, dom_3D_cycle, semi, semi_3D, semi_3D_cycle, upper')
+flags.DEFINE_string('emb_layer', 'fc7', 'fc6, fc7')
+flags.DEFINE_string('summaries_dir', 'exp_eklfh_s1/tuning/exp_2_dom__batch_64__steps_10000__lr_2e-05__embfc7__dr_0.3__ft_fc7', 'Directory containing summary information about the experiment')
+flags.DEFINE_integer('test_batch_size', 256, 'Test batch size')
+
+
+
 
 def main(_):
+    FLAGS = flags.FLAGS
+
+    print(FLAGS.summaries_dir)
+    print("test_batch_size: ", FLAGS.test_batch_size)
+    # Set Dataset Manager
+    from data.data_manager import Manager as DataManager
+    dataset = DataManager('./data', FLAGS.dataset, FLAGS.exp_mode)
+
     # Set Domain Adaptation Network
     net_opts = Network.OPTS()
     net_opts.network_name = 'dom_adapt_net'
     net_opts.weight_path = 'pretrained/vgg-face.mat'
-    net_opts.num_class = 30
-    net = Network(net_opts)
+    net_opts.num_class = dataset.num_class
+    net = Network(net_opts, FLAGS.emb_layer)
     net.construct()
     net.probe_prob = tf.nn.softmax(net.class_score)
     net.probe_correct_pred = tf.equal(tf.argmax(net.probe_prob[:,0:net.opts.num_class], 1), tf.argmax(net.y_, 1))
     net.probe_class_accuracy = tf.reduce_mean(tf.cast(net.probe_correct_pred, tf.float32))
 
 
-    # Set Dataset Manager
-    from data.data_manager import Manager as DataManager
-    dataset = DataManager('./data', net_opts.num_class)
+
 
     # Start Session
     saver = tf.train.Saver(tf.global_variables())
@@ -58,7 +69,7 @@ def main(_):
         acc_b = 0
         num_left = 1
         while num_left > 0:
-            x_batch, y_batch, idx, dom_label, num_left = test_batch.next()
+            x_batch, y_batch, idx, dom_label, num_left = test_batch.__next__()
             b_size = x_batch.shape[0]
             loss, d_loss, c_loss, d_acc, c_acc, embed_feat = sess.run([net.loss, net.dom_loss, net.class_loss, net.dom_accuracy, net.probe_class_accuracy, net.embedded_with_class],
                                                                       feed_dict={net.x: x_batch, net.y_: y_batch, net.d_: dom_label, net.with_class_idx: idx, net.keep_prob: 1., net.l: 1.})

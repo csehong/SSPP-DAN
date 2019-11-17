@@ -5,7 +5,6 @@ from util.PyMatData import PyMatData
 import os.path
 
 
-
 class VGG_Face:
     class OPTS(OPTS.OPTS):
         def __init__(self):
@@ -36,6 +35,7 @@ class VGG_Face:
         self.pool3 = self.vgg_conv(self.pool2, dim=256, num_conv=3, layer_num=3)
         self.pool4 = self.vgg_conv(self.pool3, dim=512, num_conv=3, layer_num=4)
         self.pool5 = self.vgg_conv(self.pool4, dim=512, num_conv=3, layer_num=5)
+        #self.pool5 = self.vgg_conv_cbam(self.pool4, dim=512, num_conv=3, layer_num=5)
         self.fc6 = tf.nn.relu(self.fc(self.pool5, 4096, 'fc6'))
         if self.opts.apply_dropout:
             self.fc6 = tf.nn.dropout(self.fc6, self.keep_prob, name='fc6_drop')
@@ -47,7 +47,7 @@ class VGG_Face:
 
     def load_pretrained(self, session):
         if not os.path.isfile(self.opts.weight_path):
-            raise
+            raise OSError(2, 'No such file or directory', self.opts.weight_path)
         mat_data = PyMatData(self.opts.weight_path)
 
         for l in range(len(mat_data.layers)):
@@ -82,6 +82,14 @@ class VGG_Face:
             fc = tf.nn.xw_plus_b(x, weights, biases)
             return fc
 
+    def vgg_conv_cbam(self, x, dim, num_conv=3, layer_num=None):
+        t = x
+        for i in range(1, num_conv + 1):
+            t = self.vgg_conv2d(t, dim, "conv%d_%d" % (layer_num, i))
+            t = cbam_block(t, "cbam%d_%d" % (layer_num, i), 8)
+        t = self.vgg_pool2d(t, "pool%d" % (layer_num))
+        return t
+        
     def vgg_conv(self, x, dim, num_conv=3, layer_num=None):
         t = x
         for i in range(1, num_conv + 1):
@@ -101,3 +109,4 @@ class VGG_Face:
         with tf.name_scope(name):
             pool = tf.nn.max_pool(in_tensor, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
             return pool
+
