@@ -13,8 +13,8 @@ Prerequisites
 * [SciPy](https://www.scipy.org/install.html)
 
 We recommend the following instuctions.
-- docker pull image (docker pull tensorflow/tensorflow:1.12.0-gpu-py3)
-- in the docker container 
+- Pull docker image (docker pull tensorflow/tensorflow:1.12.0-gpu-py3)
+- In the docker container 
    apt-get update
    pip install scikit-image
    apt-get install -y libsm6 libxext6 libxrender-dev
