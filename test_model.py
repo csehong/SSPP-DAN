@@ -7,9 +7,9 @@ from DAN import Dom_Adapt_Net as Network
 # Set Flag for Experiment
 flags = tf.app.flags
 flags.DEFINE_string('dataset', 'eklfh_s1', 'eklfh_s1, eklfh_s2, scface_s1, scface_s2' )
-flags.DEFINE_string('exp_mode', 'dom_3D_cycle', 'lower, lower_3D, lower_3D_cycle, dom, dom_3D, dom_3D_cycle, semi, semi_3D, semi_3D_cycle, upper')
+flags.DEFINE_string('exp_mode', 'dom_3D', 'lower, lower_3D, dom, dom_3D, semi, semi_3D,  upper')
 flags.DEFINE_string('emb_layer', 'fc7', 'fc6, fc7')
-flags.DEFINE_string('summaries_dir', 'exp_eklfh_s1/tuning/exp_2_dom__batch_64__steps_10000__lr_2e-05__embfc7__dr_0.3__ft_fc7', 'Directory containing summary information about the experiment')
+flags.DEFINE_string('summaries_dir', 'exp_eklfh_s1/exp_1_dom_3D__batch_256__steps_2500__lr_2e-05__embfc7__dr_0.3__ft_fc7', 'Directory containing summary information about the experiment')
 flags.DEFINE_integer('test_batch_size', 256, 'Test batch size')
 
 
