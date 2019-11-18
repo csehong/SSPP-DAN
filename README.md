@@ -49,7 +49,8 @@ legend refer to the source and target domains, respectively.
 
 Author
 ------------
-Sungeun Hong / @[csehong][wp]
-[wp]: www.csehong.com
+Sungeun Hong 
+e: csehong@gmail.com
+w: www.csehong.com
 
 
