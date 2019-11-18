@@ -23,8 +23,7 @@ We recommend the following instuctions.
 Usage
 -------------
 
-First, download the [dataset](https://drive.google.com/uc?id=0ByHRRxErVc0NRjFzTXhRSUlyZlU&export=download) or the [pickle files](https://drive.google.com/uc?id=0ByHRRxErVc0NNFFINFJ2MXlvTGs&export=download
-) that we have already created from our repository. After all pickle files are download, move them into the SSPP-DAN/data folder.
+First, download the [dataset](https://drive.google.com/open?id=1PFh3s8WL6_tmMe-oNXM73526ngXQ51TD) or the [pickle files](https://drive.google.com/open?id=1yqFCnPi8u-bEugnLBITkCIOnThKdHjIg) that we already generated. After all pickle files are download, move them into the 'SSPP-DAN/data/eklfh_pkl' folder.
 
 Then run get_vggface.sh in the SSPP-DAN/pretrained folder to use the pre-trained VGG-Face model.
 
