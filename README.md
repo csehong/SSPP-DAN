@@ -27,7 +27,6 @@ First, download the [dataset](https://drive.google.com/open?id=1PFh3s8WL6_tmMe-o
 
 Directory Tree
 ```
-.
 |-- DAN.py
 |-- README.md
 |-- data
