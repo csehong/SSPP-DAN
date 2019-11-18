@@ -25,6 +25,41 @@ Usage
 
 First, download the [dataset](https://drive.google.com/open?id=1PFh3s8WL6_tmMe-oNXM73526ngXQ51TD) or the [pickle files](https://drive.google.com/open?id=1yqFCnPi8u-bEugnLBITkCIOnThKdHjIg) that we already generated. After all pickle files are download, move them into the 'SSPP-DAN/data/eklfh_pkl' folder.
 
+Directory Tree
+.
+|-- DAN.py
+|-- README.md
+|-- data
+|   |-- EK-LFH
+|   |-- SCface
+|   |-- __init__.py
+|   |-- data_manager.py
+|   |-- eklfh_pkl
+|   |   |-- eklfh_s1_tgt_test.pkl
+|   |   |-- eklfh_s1_tgt_train.pkl
+|   |   |-- eklfh_s2_tgt_test.pkl
+|   |   |-- eklfh_s2_tgt_train.pkl
+|   |   |-- eklfh_src_train_ori.pkl
+|   |   |-- eklfh_src_train_ori_3D.pkl
+|   |   |-- eklfh_src_train_ori_3D_semi.pkl
+|   |   |-- eklfh_src_train_ori_semi.pkl
+|   |-- pkl_generate_eklfh.py
+|   |-- pkl_generate_scface.py
+|-- pretrained
+|   |-- VGG_Face.py
+|   |-- __init__.py
+|   |-- get_vggface.sh
+|-- test_model.py
+|-- train_model.py
+|-- util
+    |-- Logger.py
+    |-- OPTS.py
+    |-- PyMatData.py
+    |-- __init__.py
+    |-- flip_gradient.py
+    |-- img_proc.py
+
+
 Then run get_vggface.sh in the SSPP-DAN/pretrained folder to use the pre-trained VGG-Face model.
 
 To train a model with downloaded dataset:
