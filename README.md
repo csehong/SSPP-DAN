@@ -26,6 +26,7 @@ Usage
 First, download the [dataset](https://drive.google.com/open?id=1PFh3s8WL6_tmMe-oNXM73526ngXQ51TD) or the [pickle files](https://drive.google.com/open?id=1yqFCnPi8u-bEugnLBITkCIOnThKdHjIg) that we already generated. After all pickle files are download, move them into the 'SSPP-DAN/data/eklfh_pkl' folder.
 
 Directory Tree
+```
 .
 |-- DAN.py
 |-- README.md
@@ -58,7 +59,7 @@ Directory Tree
     |-- __init__.py
     |-- flip_gradient.py
     |-- img_proc.py
-
+```
 
 Then run get_vggface.sh in the SSPP-DAN/pretrained folder to use the pre-trained VGG-Face model.
 
